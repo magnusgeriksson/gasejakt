@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/screens/history_screen.dart';
 import 'package:gasejakt/ui/screens/home_screen.dart';
-import 'package:gasejakt/ui/screens/register_huntingday_screen.dart';
+import 'package:gasejakt/ui/screens/register_screen.dart';
 
 void main() {
   setupServiceLocator();
@@ -32,7 +32,7 @@ class GoosehuntApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var tv = TabBarView(
       children: [
-        RegisterHuntingdayScreen(),
+        RegisterScreen(),
         HistoryScreen(title: 'Historikk'),
         HomeScreen(
           title: "Meg",

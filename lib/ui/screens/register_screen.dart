@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gasejakt/business_logic/view_models/register_huntingday_viewmodel.dart';
+import 'package:gasejakt/business_logic/view_models/register_viewmodel.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:provider/provider.dart';
 
-class RegisterHuntingdayScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _RegisterHuntingdayState createState() => _RegisterHuntingdayState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _RegisterHuntingdayState extends State<RegisterHuntingdayScreen> {
-  RegisterHuntingdayViewModel viewModel =
-      serviceLocator<RegisterHuntingdayViewModel>();
+class _RegisterState extends State<RegisterScreen> {
+  RegisterViewModel viewModel = serviceLocator<RegisterViewModel>();
   final _formKey = GlobalKey<FormState>();
   var testIcon = Icon(Icons.done);
   var testIcon2 = Icon(Icons.send);
@@ -35,9 +34,9 @@ class _RegisterHuntingdayState extends State<RegisterHuntingdayScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RegisterHuntingdayViewModel>(
-      create: (context) => viewModel,
-      child: Consumer<RegisterHuntingdayViewModel>(
+    return ChangeNotifierProvider<RegisterViewModel>.value(
+      value: viewModel,
+      child: Consumer<RegisterViewModel>(
         builder: (context, viewModel, child) => Scaffold(
           appBar: AppBar(
             title: Text(viewModel.testString),
