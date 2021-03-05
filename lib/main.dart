@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/screens/history_screen.dart';
-import 'package:gasejakt/ui/screens/home_screen.dart';
+import 'package:gasejakt/ui/screens/profile_screen.dart';
 import 'package:gasejakt/ui/screens/register_screen.dart';
 
 void main() {
@@ -34,7 +34,7 @@ class GoosehuntApp extends StatelessWidget {
       children: [
         RegisterScreen(),
         HistoryScreen(title: 'Historikk'),
-        HomeScreen(
+        ProfileScreen(
           title: "Meg",
         )
       ],
