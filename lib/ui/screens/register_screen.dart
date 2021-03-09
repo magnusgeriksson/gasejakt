@@ -67,6 +67,7 @@ class _RegisterState extends State<RegisterScreen> {
         value: viewModel,
         child: Consumer<RegisterViewModel>(
           builder: (context, value, child) => Scaffold(
+            //TODO legg AppBar i main?
             appBar: AppBar(
               centerTitle: true,
               title: Text("Registrer"),
