@@ -40,7 +40,7 @@ class _RegisterState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Container(
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
         child: Form(
           key: _formKey,
           child: Column(
@@ -68,29 +68,32 @@ class _RegisterState extends State<RegisterScreen> {
                 formKey: _formKey,
                 label: "Jegernummer",
                 validatorText: "Kan ikke være tom",
-              ),   MDTextFormField(
+              ),
+              MDTextFormField(
                 controller: _antallJegereController,
                 formKey: _formKey,
                 label: "Antall jegere",
                 validatorText: "Kan ikke være tom",
               ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false
-                    // otherwise.
-                    _toggleValidator();
+              Padding(
+                  padding: EdgeInsets.only(top: 15),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false
+                        // otherwise.
+                        _toggleValidator();
 
-                    if (_formKey.currentState.validate()) {
-                      // If the form is valid, display a Snackbar.
-                      // ScaffoldMessenger.of(context)
-                      //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                    }
-                  },
-                  child: Text('Send inn'),
-                ),
-              ),
+                        if (_formKey.currentState.validate()) {
+                          // If the form is valid, display a Snackbar.
+                          // ScaffoldMessenger.of(context)
+                          //     .showSnackBar(SnackBar(content: Text('Processing Data')));
+                        }
+                      },
+                      child: Text('Send inn'),
+                    ),
+                  )),
             ],
           ),
         ));
