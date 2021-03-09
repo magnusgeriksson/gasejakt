@@ -12,14 +12,18 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterState extends State<RegisterScreen> {
   RegisterViewModel viewModel = serviceLocator<RegisterViewModel>();
+
   final _formKey = GlobalKey<FormState>();
+
   var testIcon = Icon(Icons.done);
   var testIcon2 = Icon(Icons.send);
+
   final _antallJegereController = TextEditingController();
   final _jegerNummerController = TextEditingController();
   final _gragasNumberController = TextEditingController(text: "0");
   final _kanadagasNumberController = TextEditingController(text: "0");
   final _kortnebbgasNumberController = TextEditingController(text: "0");
+  //Used to validate counter rows
   int gooseCounter = 0;
 
   @override
@@ -58,7 +62,7 @@ class _RegisterState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
+    // Builds a Form widget using the _formKey created above.
     return ListView(
         padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
         children: [
@@ -117,6 +121,7 @@ class _RegisterState extends State<RegisterScreen> {
                         Divider(color: Colors.black, thickness: 1),
                       ],
                     ),
+                    //Må være minst en gås registrert
                     //Grågås
                     NumberInputRow(
                         label: "Grågås",

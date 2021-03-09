@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+///Legger spacing mellom alle children
 class ColumnSpacer extends StatelessWidget {
   final List<Widget> children;
   final double spacing;
