@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gasejakt/business_logic/view_models/register_viewmodel.dart';
 import 'package:gasejakt/services/service_locator.dart';
+import 'package:gasejakt/ui/widgets/MDTextFormField.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -10,7 +11,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterState extends State<RegisterScreen> {
   RegisterViewModel viewModel = serviceLocator<RegisterViewModel>();
   final _formKey = GlobalKey<FormState>();
-  final _formFieldKey = GlobalKey<FormFieldState>();
   var testIcon = Icon(Icons.done);
   var testIcon2 = Icon(Icons.send);
   final _antallJegereController = TextEditingController();
@@ -63,12 +63,12 @@ class _RegisterState extends State<RegisterScreen> {
                   ),
                 ],
               ),
-              TextFieldState(
+              MDTextFormField(
                 controller: _jegerNummerController,
                 formKey: _formKey,
                 label: "Jegernummer",
                 validatorText: "Kan ikke være tom",
-              ),   TextFieldState(
+              ),   MDTextFormField(
                 controller: _antallJegereController,
                 formKey: _formKey,
                 label: "Antall jegere",
@@ -94,59 +94,5 @@ class _RegisterState extends State<RegisterScreen> {
             ],
           ),
         ));
-  }
-}
-
-class TextFieldState extends StatefulWidget {
-  final TextEditingController controller;
-  final GlobalKey<FormState> formKey;
-  final String label;
-  final String validatorText;
-
-  const TextFieldState(
-      {Key key, this.controller, this.formKey, this.label, this.validatorText})
-      : super(key: key);
-
-  @override
-  _TextFieldStateState createState() => _TextFieldStateState();
-}
-
-class _TextFieldStateState extends State<TextFieldState> {
-  final _formFieldKey = GlobalKey<FormFieldState>();
-  var isValidated = false;
-
-  @override
-  Widget build(BuildContext context) {
-    void toggleValidated() {
-      setState(() {
-        isValidated = _formFieldKey?.currentState?.validate() ??
-            false || widget?.formKey?.currentState?.validate() ??
-            false;
-      });
-    }
-
-    return Container(
-        // color: Colors.orange,
-        // ...
-        child: TextFormField(
-      key: _formFieldKey,
-      keyboardType: TextInputType.text,
-      controller: widget.controller,
-      decoration: InputDecoration(
-          labelText: widget.label,
-          suffixIcon: isValidated ? Icon(Icons.done) : Icon(Icons.error),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 1.0),
-              borderRadius: BorderRadius.circular(5.0))),
-      validator: (value) {
-        if (value.isEmpty) {
-          return widget.validatorText;
-        }
-        return null;
-      },
-      onChanged: (text) {
-        toggleValidated();
-      },
-    ));
   }
 }
