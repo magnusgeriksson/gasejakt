@@ -1,15 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MDTextFormField extends StatefulWidget {
-  final TextEditingController controller;
+  // final TextEditingController controller;
   final GlobalKey<FormState> formKey;
   final String label;
   final String validatorText;
-
-  const MDTextFormField(
-      {Key key, this.controller, this.formKey, this.label, this.validatorText})
-      : super(key: key);
+  final ValueChanged<String> onChanged;
+  final String initialValue;
+  final List<TextInputFormatter> inputFormatters;
+  final TextInputType keyboardType;
+  const MDTextFormField({
+    Key key,
+    this.formKey,
+    this.label,
+    this.validatorText,
+    this.onChanged,
+    this.initialValue,
+    this.keyboardType,
+    this.inputFormatters,
+  }) : super(key: key);
 
   @override
   _MDTextFormFieldState createState() => _MDTextFormFieldState();
@@ -17,40 +28,61 @@ class MDTextFormField extends StatefulWidget {
 
 class _MDTextFormFieldState extends State<MDTextFormField> {
   final _formFieldKey = GlobalKey<FormFieldState>();
-  var isValidated = false;
+  final _controller = new TextEditingController();
+  bool isValidated;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = widget.initialValue;
+    _controller.addListener(() {
+      widget.onChanged(_controller.text);
+    });
+    isValidated =
+        widget.initialValue != null && widget.initialValue != "" ? true : false;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     void toggleValidated() {
       setState(() {
-        isValidated = _formFieldKey?.currentState?.validate() ??
-            false || widget?.formKey?.currentState?.validate() ??
-            false;
+        isValidated = (_formFieldKey?.currentState?.validate() ?? false) ||
+            (widget?.formKey?.currentState?.validate() ?? false);
       });
     }
 
-    return Container(
-      // color: Colors.orange,
-      // ...
-        child: TextFormField(
-          key: _formFieldKey,
-          keyboardType: TextInputType.text,
-          controller: widget.controller,
-          decoration: InputDecoration(
-              labelText: widget.label,
-              suffixIcon: isValidated ? Icon(Icons.done) : Icon(Icons.error),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.circular(5.0))),
-          validator: (value) {
-            if (value.isEmpty) {
-              return widget.validatorText;
-            }
-            return null;
-          },
-          onChanged: (text) {
-            toggleValidated();
-          },
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+          // color: Colors.orange,
+          // ...
+          child: TextFormField(
+        key: _formFieldKey,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
+        controller: _controller,
+        inputFormatters: widget.inputFormatters,
+        decoration: InputDecoration(
+            labelText: widget.label,
+            suffixIcon: isValidated ? Icon(Icons.done) : Icon(Icons.error),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.circular(5.0))),
+        validator: (value) {
+          if (value.isEmpty) {
+            return widget.validatorText;
+          }
+          return null;
+        },
+        onChanged: (text) {
+          toggleValidated();
+        },
+      )),
+    );
   }
 }

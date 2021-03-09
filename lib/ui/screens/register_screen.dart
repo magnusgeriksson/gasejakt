@@ -64,13 +64,13 @@ class _RegisterState extends State<RegisterScreen> {
                 ],
               ),
               MDTextFormField(
-                controller: _jegerNummerController,
+                // controller: _jegerNummerController,
                 formKey: _formKey,
                 label: "Jegernummer",
                 validatorText: "Kan ikke være tom",
               ),
               MDTextFormField(
-                controller: _antallJegereController,
+                // controller: _antallJegereController,
                 formKey: _formKey,
                 label: "Antall jegere",
                 validatorText: "Kan ikke være tom",
