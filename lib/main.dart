@@ -34,9 +34,7 @@ class GoosehuntApp extends StatelessWidget {
       children: [
         RegisterScreen(),
         HistoryScreen(title: 'Historikk'),
-        ProfileScreen(
-          title: "Meg",
-        )
+        ProfileScreen(title: "Meg")
       ],
     );
 
