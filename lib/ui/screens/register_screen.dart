@@ -4,6 +4,7 @@ import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/widgets/column_spacer.dart';
 import 'package:gasejakt/ui/widgets/md_number_input_row.dart';
 import 'package:gasejakt/ui/widgets/md_text_form_field.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -62,104 +63,114 @@ class _RegisterState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Builds a Form widget using the _formKey created above.
-    return ListView(
-        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  ColumnSpacer(spacing: 10, children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        IconButton(
-                          padding: EdgeInsets.all(0),
-                          alignment: Alignment.centerLeft,
-                          icon: Icon(Icons.error),
-                          //TODO use constant
-                          color: Color(0xFF006964),
-                        ),
-                        Flexible(
-                          child: Text(
-                            "Send inn en registrering for hver jaktdag, for hele jaktfølget tet",
-                          ),
-                        ),
-                      ],
-                    ),
-                    //Jegernummer
-                    MDTextFormField(
-                      controller: _jegerNummerController,
-                      formKey: _formKey,
-                      label: "Jegernummer",
-                      validatorText: "Kan ikke være tom",
-                    ),
-                    //Antall jegere
-                    MDTextFormField(
-                      controller: _antallJegereController,
-                      formKey: _formKey,
-                      label: "Antall jegere",
-                      validatorText: "Kan ikke være tom",
-                    ),
-                    //Hva har du skutt title
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Hva har du skutt?",
-                                //TODO default sub title style
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15)),
-                            Text("Antall",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15))
-                          ],
-                        ),
-                        Divider(color: Colors.black, thickness: 1),
-                      ],
-                    ),
-                    //Må være minst en gås registrert
-                    //Grågås
-                    NumberInputRow(
-                        label: "Grågås",
-                        controller: _gragasNumberController,
-                        gooseCounter: gooseCounter),
-                    //Kanadagås
-                    NumberInputRow(
-                        label: "Kanadagås",
-                        controller: _kanadagasNumberController,
-                        gooseCounter: gooseCounter),
-                    //Kortnebbgås
-                    NumberInputRow(
-                        label: "Kortnebbgås",
-                        controller: _kortnebbgasNumberController,
-                        gooseCounter: gooseCounter),
-                    //Send inn
-                    Padding(
-                        padding: EdgeInsets.only(top: 15),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, or false
-                              // otherwise.
-                              _toggleValidator();
+    return ChangeNotifierProvider<RegisterViewModel>.value(
+        value: viewModel,
+        child: Consumer<RegisterViewModel>(
+          builder: (context, value, child) => Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text("Registrer"),
+            ),
+            body:
+            ListView(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          ColumnSpacer(spacing: 10, children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                IconButton(
+                                  padding: EdgeInsets.all(0),
+                                  alignment: Alignment.centerLeft,
+                                  icon: Icon(Icons.error),
+                                  //TODO use constant
+                                  color: Color(0xFF006964),
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    "Send inn en registrering for hver jaktdag, for hele jaktfølget tet",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            //Jegernummer
+                            MDTextFormField(
+                              controller: _jegerNummerController,
+                              formKey: _formKey,
+                              label: "Jegernummer",
+                              validatorText: "Kan ikke være tom",
+                            ),
+                            //Antall jegere
+                            MDTextFormField(
+                              controller: _antallJegereController,
+                              formKey: _formKey,
+                              label: "Antall jegere",
+                              validatorText: "Kan ikke være tom",
+                            ),
+                            //Hva har du skutt title
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Hva har du skutt?",
+                                        //TODO default sub title style
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold, fontSize: 15)),
+                                    Text("Antall",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold, fontSize: 15))
+                                  ],
+                                ),
+                                Divider(color: Colors.black, thickness: 1),
+                              ],
+                            ),
+                            //Må være minst en gås registrert
+                            //Grågås
+                            NumberInputRow(
+                                label: "Grågås",
+                                controller: _gragasNumberController,
+                                gooseCounter: gooseCounter),
+                            //Kanadagås
+                            NumberInputRow(
+                                label: "Kanadagås",
+                                controller: _kanadagasNumberController,
+                                gooseCounter: gooseCounter),
+                            //Kortnebbgås
+                            NumberInputRow(
+                                label: "Kortnebbgås",
+                                controller: _kortnebbgasNumberController,
+                                gooseCounter: gooseCounter),
+                            //Send inn
+                            Padding(
+                                padding: EdgeInsets.only(top: 15),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Validate returns true if the form is valid, or false
+                                      // otherwise.
+                                      _toggleValidator();
 
-                              if (_formKey.currentState.validate()) {
-                                // If the form is valid, display a Snackbar.
-                                // ScaffoldMessenger.of(context)
-                                //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                              }
-                            },
-                            child: Text('Send inn'),
-                          ),
-                        )),
-                  ]),
-                ]),
-          )
-        ]);
+                                      if (_formKey.currentState.validate()) {
+                                        // If the form is valid, display a Snackbar.
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showSnackBar(SnackBar(content: Text('Processing Data')));
+                                      }
+                                    },
+                                    child: Text('Send inn'),
+                                  ),
+                                )),
+                          ]),
+                        ]),
+                  )
+                ])
+          ),
+        ));
   }
 }
