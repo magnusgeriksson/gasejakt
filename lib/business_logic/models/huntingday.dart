@@ -1,5 +1,6 @@
 class Huntingday {
   String jegerNumber;
+  String location;
   int antallJeger;
   int graGas;
   int kanadaGas;
@@ -7,6 +8,7 @@ class Huntingday {
 
   Huntingday(
       {this.jegerNumber = "",
+      this.location = "",
       this.antallJeger = 0,
       this.graGas = 0,
       this.kanadaGas = 0,
