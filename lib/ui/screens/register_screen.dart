@@ -158,6 +158,8 @@ class _RegisterState extends State<RegisterScreen> {
                                       // otherwise.
                                       _toggleValidator();
 
+                                      // viewModel.sendData();
+                                      
                                       if (_formKey.currentState.validate()) {
                                         // If the form is valid, display a Snackbar.
                                         // ScaffoldMessenger.of(context)
