@@ -64,10 +64,15 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
 
     return Scaffold(
         appBar: AppBar(
+          leading: new IconButton(
+              icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context, true);
+              }),
           title: Text('Velg kommune'),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(model.selectedKommune.navn ?? "PLACEHOLDER SELECTED KOMMUNE"),
+          Text(model.selectedKommune?.navn ?? "PLACEHOLDER SELECTED KOMMUNE"),
           TextField(
               decoration: InputDecoration(
                 labelText: "Søk etter kommune",

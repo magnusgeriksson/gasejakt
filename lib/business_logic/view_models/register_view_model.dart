@@ -9,10 +9,8 @@ class RegisterViewModel extends ChangeNotifier {
   final GoosehuntService _goosehuntService = serviceLocator<GoosehuntService>();
 
   RegisterPresentation _registerPresentation;
-  KommunePresentation _kommunePresentation;
 
   RegisterPresentation get registerPresentation => _registerPresentation;
-  KommunePresentation get kommunePresentation => _kommunePresentation;
 
   void sendData(Huntingday huntingday) async {
     var res = await _goosehuntService.registerHuntingday(huntingday);
@@ -22,33 +20,21 @@ class RegisterViewModel extends ChangeNotifier {
 
   Future<void> loadData() async {
     var hunter = await _goosehuntService.getHunter();
-    _prepareRegisterPresentation(hunter);
     var kommune = await _goosehuntService.getSelectedKommune();
-    _prepareKommunePresentation(kommune);
+
+    _prepareRegisterPresentation(hunter, kommune);
     notifyListeners();
   }
 
-
-  void _prepareKommunePresentation(Kommune kommune){
-
-    final kommunePresentationTemp = new KommunePresentation(kommune.navn);
-
-    _kommunePresentation = kommunePresentationTemp;
-  }
-
-  void _prepareRegisterPresentation(Hunter hunter) {
-    _registerPresentation = RegisterPresentation(hunter.hunterNumber);
+  void _prepareRegisterPresentation(Hunter hunter, Kommune kommune) {
+    _registerPresentation = RegisterPresentation(hunter.hunterNumber, kommune.navn);
   }
 }
 
+//Alle felt som skal vises i UI
 class RegisterPresentation {
   final String jegernummer;
+  final String kommunenavn;
 
-  RegisterPresentation(this.jegernummer);
-}
-
-class KommunePresentation {
-  final String navn;
-
-  KommunePresentation(this.navn);
+  RegisterPresentation(this.jegernummer, this.kommunenavn);
 }

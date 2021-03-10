@@ -29,6 +29,7 @@ class _RegisterState extends State<RegisterScreen> {
   //Used to validate counter rows
   int gooseCounter = 0;
 
+  // TODO blir ikke kalt på navigate tilbake
   @override
   void initState() {
     super.initState();
@@ -136,7 +137,7 @@ class _RegisterState extends State<RegisterScreen> {
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _navigateToSelectKommune,
-                                child: Text(model.kommunePresentation.navn ?? ""),
+                                child: Text(model?.registerPresentation?.kommunenavn ?? ""),
                               ),
                             ),
                             //Hva har du skutt title
