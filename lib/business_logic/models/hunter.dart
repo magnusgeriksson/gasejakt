@@ -19,6 +19,11 @@ class Hunter {
       this.postalAddress = "",
       this.phoneNumber = "",
       this.mailAddress = ""});
+
+  @override
+  String toString() {
+    return "$hunterNumber\n$firstName\n$lastName\n$address\n$postalCode\n$postalAddress\n$phoneNumber\n$mailAddress";
+  }
 }
 
 extension DummyHunter on Hunter {

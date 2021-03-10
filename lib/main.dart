@@ -4,27 +4,12 @@ import 'package:gasejakt/ui/screens/history_screen.dart';
 import 'package:gasejakt/ui/screens/profile_screen.dart';
 import 'package:gasejakt/ui/screens/register_screen.dart';
 
+import 'business_logic/utils/constants.dart';
+
 void main() {
   setupServiceLocator();
   runApp(GoosehuntApp());
 }
-
-const PrimaryColor = Color(0xFF006964);
-const MaterialColor kPrimaryColor = const MaterialColor(
-  0xFF006964,
-  const <int, Color>{
-    50: const Color(0xFF006964),
-    100: const Color(0xFF006964),
-    200: const Color(0xFF006964),
-    300: const Color(0xFF006964),
-    400: const Color(0xFF006964),
-    500: const Color(0xFF006964),
-    600: const Color(0xFF006964),
-    700: const Color(0xFF006964),
-    800: const Color(0xFF006964),
-    900: const Color(0xFF006964),
-  },
-);
 
 class GoosehuntApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -34,7 +19,7 @@ class GoosehuntApp extends StatelessWidget {
       children: [
         RegisterScreen(),
         HistoryScreen(title: 'Historikk'),
-        ProfileScreen(title: "Meg")
+        ProfileScreen()
       ],
     );
 
