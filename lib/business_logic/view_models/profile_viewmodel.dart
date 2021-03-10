@@ -9,8 +9,13 @@ class ProfileViewmodel extends ChangeNotifier {
   Hunter _hunter = Hunter();
 
   Future<void> loadData() async {
-    _hunter = await _goosehuntService.getHunter();
+    await _loadHunter();
+    print("Hunter hentet i loadData!");
     notifyListeners();
+  }
+
+  Future<void> _loadHunter() async {
+    _hunter = await _goosehuntService.getHunter();
   }
 
   //Public
@@ -56,5 +61,10 @@ class ProfileViewmodel extends ChangeNotifier {
   void setHuntingNumber(String number) {
     _hunter.hunterNumber = number;
     notifyListeners();
+  }
+
+  //Returns true if saving is ok.
+  Future<bool> saveHunter() {
+    return _goosehuntService.registerHunter(_hunter);
   }
 }
