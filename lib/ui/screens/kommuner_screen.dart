@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gasejakt/business_logic/utils/constants.dart';
 import 'package:gasejakt/business_logic/view_models/kommune_viewmodel.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:provider/provider.dart';
@@ -45,9 +46,9 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
                               Text('${model.kommunePresentation[index].navn}'),
                           // subtitle:
                           //     Text('${model.kommunePresentation[index].navn}'),
-                          trailing: (true)
-                              ? Icon(Icons.favorite, color: Colors.red)
-                              : Icon(Icons.favorite_border),
+                          trailing: (model.kommunePresentation[index].isSelected ?? false)
+                              ? Icon(Icons.done, color: PrimaryColor)
+                              : null,
                           onTap: () {
                             model.setKommune(index);
                           },
@@ -66,7 +67,7 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
           title: Text('Velg kommune'),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("PLACEHOLDER SELECTED KOMMUNE"),
+          Text(model.selectedKommune.navn ?? "PLACEHOLDER SELECTED KOMMUNE"),
           TextField(
               decoration: InputDecoration(
                 labelText: "Søk etter kommune",

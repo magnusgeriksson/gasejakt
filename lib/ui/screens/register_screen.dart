@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gasejakt/business_logic/view_models/kommune_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/widgets/column_spacer.dart';
@@ -98,7 +97,8 @@ class _RegisterState extends State<RegisterScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           ColumnSpacer(spacing: 10, children: [
-                            Row(
+                            //INFO TEXT
+                              Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 IconButton(
@@ -136,7 +136,7 @@ class _RegisterState extends State<RegisterScreen> {
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _navigateToSelectKommune,
-                                child: Text('HER KOMMER KOMMUNENAVN'),
+                                child: Text(model.kommunePresentation.navn ?? ""),
                               ),
                             ),
                             //Hva har du skutt title

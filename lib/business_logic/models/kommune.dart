@@ -4,12 +4,14 @@ class Kommune {
   int nummer;
   int gammeltNummer;
   String navn;
+  bool isSelected;
 
 
 Kommune(int id, int nummer, String navn){
   this.id  = id;
   this.nummer = nummer;
   this.navn = navn;
+  this.isSelected = false;
 }
 
   // Huntingday(

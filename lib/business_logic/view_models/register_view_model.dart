@@ -9,10 +9,10 @@ class RegisterViewModel extends ChangeNotifier {
   final GoosehuntService _goosehuntService = serviceLocator<GoosehuntService>();
 
   RegisterPresentation _registerPresentation;
-  List<KommunePresentation> _kommunePresentation;
+  KommunePresentation _kommunePresentation;
 
   RegisterPresentation get registerPresentation => _registerPresentation;
-  List<KommunePresentation> get kommunePresentation => _kommunePresentation;
+  KommunePresentation get kommunePresentation => _kommunePresentation;
 
   void sendData(Huntingday huntingday) async {
     var res = await _goosehuntService.registerHuntingday(huntingday);
@@ -23,21 +23,17 @@ class RegisterViewModel extends ChangeNotifier {
   Future<void> loadData() async {
     var hunter = await _goosehuntService.getHunter();
     _prepareRegisterPresentation(hunter);
-    var kommuner = await _goosehuntService.getKommuner();
-    _prepareKomunePresentation(kommuner);
+    var kommune = await _goosehuntService.getSelectedKommune();
+    _prepareKommunePresentation(kommune);
     notifyListeners();
   }
 
 
-  void _prepareKomunePresentation(List<Kommune> kommuner){
-    List<KommunePresentation> list = [];
-    for (Kommune kommune in kommuner) {
-      // String code = rate.quoteCurrency;
-      // bool isFavorite = _getFavoriteStatus(code);
-      var presentation = new KommunePresentation(kommune.navn);
-      list.add(presentation);
-    }
-    _kommunePresentation = list;
+  void _prepareKommunePresentation(Kommune kommune){
+
+    final kommunePresentationTemp = new KommunePresentation(kommune.navn);
+
+    _kommunePresentation = kommunePresentationTemp;
   }
 
   void _prepareRegisterPresentation(Hunter hunter) {

@@ -27,11 +27,37 @@ class GoosehuntServiceFake implements GoosehuntService {
     var kommune1 = new Kommune(0, 0, "Trondheim");
     var kommune2 = new Kommune(1, 1, "Bærum");
     var kommune3 = new Kommune(2, 2, "Sandefjord");
+    var kommune4 = new Kommune(2, 2, "Sandefjord");
+    kommune4.isSelected = true;
 
     kommunelist.add(kommune1);
     kommunelist.add(kommune2);
     kommunelist.add(kommune3);
+    kommunelist.add(kommune4);
 
     return kommunelist;
+  }
+
+  @override
+  void setSelectedKommune(int kommunenummer) {
+    // TODO: implement setSelectedKommune
+  }
+
+  @override
+  Huntingday getHuntingDay() {
+    var huntingDay = new Huntingday();
+    huntingDay.jegerNumber = DummyHunter.dummyHunter.hunterNumber;
+    huntingDay.kommunenummer = 2;
+
+    return huntingDay;
+  }
+
+  @override
+  Future<Kommune> getSelectedKommune() async {
+
+    var kommune4 = new Kommune(2, 2, "Sandefjord");
+    kommune4.isSelected = true;
+
+    return kommune4;
   }
 }
