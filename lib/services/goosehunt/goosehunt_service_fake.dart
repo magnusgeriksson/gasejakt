@@ -22,8 +22,6 @@ class GoosehuntServiceFake implements GoosehuntService {
 
   @override
   Future<List<Kommune>> getKommuner() async {
-    // var hh = List.filled(length, fill)
-
     List<Kommune> kommunelist = [];
 
     var kommune1 = new Kommune(0, 0, "Trondheim");
@@ -35,10 +33,5 @@ class GoosehuntServiceFake implements GoosehuntService {
     kommunelist.add(kommune3);
 
     return kommunelist;
-
-    // return new Lis
-
-    // TODO: implement getKommuner
-    throw UnimplementedError();
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gasejakt/business_logic/view_models/kommune_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/widgets/column_spacer.dart';
 import 'package:gasejakt/ui/widgets/md_number_input_row.dart';
 import 'package:gasejakt/ui/widgets/md_text_form_field.dart';
 import 'package:provider/provider.dart';
+
+import 'kommuner_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -68,6 +71,13 @@ class _RegisterState extends State<RegisterScreen> {
     });
   }
 
+  void _navigateToSelectKommune(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SelectKommuneScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RegisterViewModel>.value(
@@ -118,6 +128,16 @@ class _RegisterState extends State<RegisterScreen> {
                               formKey: _formKey,
                               label: "Antall jegere",
                               validatorText: "Kan ikke være tom",
+                            ),
+                            //Hvor jaktet du?
+                            Text("Hvor jaktet du?", style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15)),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: _navigateToSelectKommune,
+                                child: Text('HER KOMMER KOMMUNENAVN'),
+                              ),
                             ),
                             //Hva har du skutt title
                             Column(
