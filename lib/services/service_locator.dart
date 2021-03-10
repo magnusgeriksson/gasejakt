@@ -1,4 +1,4 @@
-import 'package:gasejakt/business_logic/view_models/register_viewmodel.dart';
+import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service_fake.dart';
 import 'package:get_it/get_it.dart';

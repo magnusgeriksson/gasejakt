@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gasejakt/business_logic/view_models/register_viewmodel.dart';
+import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/widgets/column_spacer.dart';
 import 'package:gasejakt/ui/widgets/md_number_input_row.dart';
@@ -29,12 +29,19 @@ class _RegisterState extends State<RegisterScreen> {
 
   @override
   void initState() {
-    //model.loadData(); <-- Hent huntingdaymodel med jegernummer registrert?
     super.initState();
+
+    loadDefaultData();
     _kanadagasNumberController.addListener(incrementGooseCounter);
     _gragasNumberController.addListener(incrementGooseCounter);
     _kortnebbgasNumberController.addListener(incrementGooseCounter);
   }
+
+  void loadDefaultData() async {
+    await viewModel.loadData();
+    _jegerNummerController.text = viewModel.registerPresentation.jegernummer;
+  }
+
 
   @override
   void dispose() {
@@ -66,18 +73,17 @@ class _RegisterState extends State<RegisterScreen> {
     return ChangeNotifierProvider<RegisterViewModel>.value(
         value: viewModel,
         child: Consumer<RegisterViewModel>(
-          builder: (context, value, child) => Scaffold(
-            //TODO legg AppBar i main?
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text("Registrer"),
-            ),
-            body:
-            ListView(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                children: [
-                  Form(
-                    key: _formKey,
+          builder: (context, model, child) => Scaffold(
+              //TODO legg AppBar i main?
+              appBar: AppBar(
+                centerTitle: true,
+                title: Text("Registrer"),
+              ),
+              body: ListView(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  children: [
+                    Form(
+                      key: _formKey,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -159,8 +165,8 @@ class _RegisterState extends State<RegisterScreen> {
                                       _toggleValidator();
 
                                       // viewModel.sendData();
-                                      
-                                      if (_formKey.currentState.validate()) {
+
+                                        if (_formKey.currentState.validate()) {
                                         // If the form is valid, display a Snackbar.
                                         // ScaffoldMessenger.of(context)
                                         //     .showSnackBar(SnackBar(content: Text('Processing Data')));
@@ -176,4 +182,5 @@ class _RegisterState extends State<RegisterScreen> {
           ),
         ));
   }
+
 }
