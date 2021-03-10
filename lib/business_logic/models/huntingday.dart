@@ -1,6 +1,11 @@
 class Huntingday {
+  //[Range(1, 999999)]
   String jegerNumber;
   String location;
+  DateTime time;
+  //[Range(101, 9999, ErrorMessage = "{0} must be between 101 and 9999")]
+  int kommunenummer;
+  //[Range(1, 99, ErrorMessage = "{0} must be between 1 and 100")]
   int antallJeger;
   int graGas;
   int kanadaGas;
