@@ -41,17 +41,17 @@ class KommuneViewModel extends ChangeNotifier {
   }
 
   void setKommune(int index) {
+    _selectedKommune = _kommunePresentation[index];
+
     _goosehuntService.setSelectedKommune(_selectedKommune.kommunenummer);
 
     //TODO TEMP set selected kommune. Dette vil bare fungere i UI, valgt kommune blir ikke med videre.
-    for(KommunePresentation pres in _allKommunePresentation){
+    for (KommunePresentation pres in _allKommunePresentation) {
       pres.isSelected = false;
     }
-    for(KommunePresentation pres in _kommunePresentation){
+    for (KommunePresentation pres in _kommunePresentation) {
       pres.isSelected = pres == _kommunePresentation[index];
     }
-
-    _selectedKommune = _kommunePresentation[index];
 
     notifyListeners();
   }

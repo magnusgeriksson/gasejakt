@@ -71,11 +71,18 @@ class _RegisterState extends State<RegisterScreen> {
     });
   }
 
-  void _navigateToSelectKommune(){
+  void _sendRegistrering() {
+    _antallJegereController.clear();
+    _gragasNumberController.clear();
+    _kanadagasNumberController.clear();
+    _kortnebbgasNumberController.clear();
+  }
+
+  void _navigateToSelectKommune() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SelectKommuneScreen()),
-    );
+    ).then((value) => loadDefaultData());
   }
 
   @override
@@ -129,7 +136,7 @@ class _RegisterState extends State<RegisterScreen> {
                               formKey: _formKey,
                               label: "Antall jegere",
                               validatorText: "Kan ikke være tom",
-                            ),
+                                textInputType: TextInputType.number),
                             //Hvor jaktet du?
                             Text("Hvor jaktet du?", style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
@@ -188,11 +195,13 @@ class _RegisterState extends State<RegisterScreen> {
                                       // viewModel.sendData();
 
                                         if (_formKey.currentState.validate()) {
-                                        // If the form is valid, display a Snackbar.
-                                        // ScaffoldMessenger.of(context)
-                                        //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                                      }
-                                    },
+                                          _sendRegistrering();
+
+                                          // If the form is valid, display a Snackbar.
+                                          // ScaffoldMessenger.of(context)
+                                          //     .showSnackBar(SnackBar(content: Text('Processing Data')));
+                                        }
+                                      },
                                     child: Text('Send inn'),
                                   ),
                                 )),
@@ -203,5 +212,4 @@ class _RegisterState extends State<RegisterScreen> {
           ),
         ));
   }
-
 }

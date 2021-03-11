@@ -50,7 +50,10 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
                               ? Icon(Icons.done, color: PrimaryColor)
                               : null,
                           onTap: () {
-                            model.setKommune(index);
+                            //setState to update Placeholder selected kommune
+                            setState(() {
+                              model.setKommune(index);
+                            });
                           },
                         ),
                       );

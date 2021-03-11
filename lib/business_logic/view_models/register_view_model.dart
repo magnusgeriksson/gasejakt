@@ -27,7 +27,7 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   void _prepareRegisterPresentation(Hunter hunter, Kommune kommune) {
-    _registerPresentation = RegisterPresentation(hunter.hunterNumber, kommune.navn);
+    _registerPresentation = RegisterPresentation(hunter.hunterNumber, kommune?.navn ?? "Velg kommune");
   }
 }
 

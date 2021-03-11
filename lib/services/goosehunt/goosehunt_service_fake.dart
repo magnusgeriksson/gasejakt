@@ -57,8 +57,7 @@ class GoosehuntServiceFake implements GoosehuntService {
   @override
   Future<Kommune> getSelectedKommune() async {
     var selectedKommune =
-        kommunelist?.firstWhere((kommune) => kommune.isSelected) ?? null;
-    kommune4.isSelected = true;
+        kommunelist?.firstWhere((kommune) => kommune.isSelected, orElse: () => null) ?? null;
     return selectedKommune;
   }
 }
