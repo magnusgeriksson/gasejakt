@@ -1,4 +1,5 @@
 class Hunter {
+  int id;
   String hunterNumber;
   String firstName;
   String lastName;
@@ -11,7 +12,8 @@ class Hunter {
   // Hunter(this.hunterNumber, this.firstName, this.lastName, this.address,
   //     this.postalCode, this.postalAddress, this.phoneNumber, this.mailAddress);
   Hunter(
-      {this.hunterNumber = "",
+      {this.id = 0,
+      this.hunterNumber = "",
       this.firstName = "",
       this.lastName = "",
       this.address = "",
@@ -36,4 +38,31 @@ extension DummyHunter on Hunter {
       postalAddress: "Trondheim",
       phoneNumber: "99999999",
       mailAddress: "tore@tang.no");
+}
+
+extension CreateScriptHunter on Hunter {
+  static final tableName = "hunter_table";
+  static final colId = "id";
+  static final colHunterNumber = "hunterNumber";
+  static final colFirstName = "firstName";
+  static final colLastName = "lastName";
+  static final colAddress = "address";
+  static final colPostalCode = "postalCode";
+  static final colPostalAddress = "postalAddress";
+  static final colPhoneNumber = "phoneNumber";
+  static final colMailAddress = "mailAddress";
+
+  static var script = '''
+    CREATE TABLE $tableName (
+      $colId INTEGER PRIMARY KEY, 
+      $colHunterNumber TEXT NOT NULL,
+      $colFirstName TEXT NOT NULL,
+      $colLastName TEXT NOT NULL,
+      $colAddress TEXT NOT NULL,
+      $colPostalCode TEXT NOT NULL,
+      $colPostalAddress TEXT NOT NULL,
+      $colPhoneNumber TEXT NOT NULL,
+      $colMailAddress TEXT NOT NULL,
+    )
+    ''';
 }
