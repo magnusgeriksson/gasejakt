@@ -46,7 +46,6 @@ class _RegisterState extends State<RegisterScreen> {
     _jegerNummerController.text = viewModel.registerPresentation.jegernummer;
   }
 
-
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
@@ -130,7 +129,7 @@ class _RegisterState extends State<RegisterScreen> {
                               formKey: _formKey,
                               label: "Antall jegere",
                               validatorText: "Kan ikke være tom",
-                                textInputType: TextInputType.number),
+                                keyboardType: TextInputType.number),
                             //Hvor jaktet du?
                             Text("Hvor jaktet du?", style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
@@ -195,15 +194,13 @@ class _RegisterState extends State<RegisterScreen> {
                                           // ScaffoldMessenger.of(context)
                                           //     .showSnackBar(SnackBar(content: Text('Processing Data')));
                                         }
-                                      },
+                                    },
                                     child: Text('Send inn'),
                                   ),
                                 )),
-                          ]),
-                        ]),
-                  )
-                ])
-          ),
+                    ]),
+                    )
+                  ])),
         ));
   }
 }

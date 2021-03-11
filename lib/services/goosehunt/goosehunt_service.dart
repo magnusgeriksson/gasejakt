@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 abstract class GoosehuntService {
   Future<http.Response> registerHuntingday(Huntingday huntingday);
   Future<Hunter> getHunter();
-  void registerHunter();
+  Future<bool> registerHunter(Hunter hunter);
   Future<List<Kommune>> getKommuner();
   Future<Kommune> getSelectedKommune();
   void setSelectedKommune(int kommunenummer);

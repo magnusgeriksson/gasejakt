@@ -29,8 +29,9 @@ class GoosehuntServiceFake implements GoosehuntService {
   }
 
   @override
-  Future<void> registerHunter() async {
-    return;
+  Future<bool> registerHunter(Hunter hunter) async {
+    print(hunter.toString() + "is being saved");
+    return true;
   }
 
   @override
