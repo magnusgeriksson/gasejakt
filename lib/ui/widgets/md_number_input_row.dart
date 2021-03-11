@@ -37,9 +37,13 @@ class _NumberInputRowState extends State<NumberInputRow> {
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   borderRadius: BorderRadius.circular(5.0))),
+          //TODO blir ikke oppdatert når man fjerner siste tall, dermed vil goosecounter være gammel verdi og gi feil validering
           validator: (value) {
             if (int.tryParse(value) != null && int.tryParse(value) > 0)
               return null;
+
+            if (widget.gooseCounter > 0) return null;
+
             return "";
             // if (widget.gooseCounter == null || widget.gooseCounter < 1)
             //   return "";

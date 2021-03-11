@@ -17,7 +17,7 @@ class MDTextFormField extends StatefulWidget {
       this.label,
       this.validatorText,
       this.controller,
-      this.keyboardType,
+      this.keyboardType = TextInputType.text,
       this.inputFormatters,
       this.enabled})
       : super(key: key);
@@ -51,7 +51,7 @@ class _MDTextFormFieldState extends State<MDTextFormField> {
       child: Container(
           child: TextFormField(
         key: _formFieldKey,
-        keyboardType: widget.keyboardType ?? TextInputType.text,
+        keyboardType: widget.keyboardType,
         controller: widget.controller,
         enabled: widget.enabled != false,
         inputFormatters: widget.inputFormatters,

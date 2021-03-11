@@ -1,3 +1,4 @@
+import 'package:gasejakt/business_logic/view_models/kommune_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/profile_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
@@ -14,6 +15,8 @@ void setupServiceLocator() {
   //Viewmodels
   serviceLocator
       .registerLazySingleton<RegisterViewModel>(() => RegisterViewModel());
+  serviceLocator
+      .registerLazySingleton<KommuneViewModel>(() => KommuneViewModel());
   serviceLocator
       .registerLazySingleton<ProfileViewmodel>(() => ProfileViewmodel());
 }
