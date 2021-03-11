@@ -17,5 +17,6 @@ void setupServiceLocator() {
       .registerLazySingleton<RegisterViewModel>(() => RegisterViewModel());
   serviceLocator
       .registerLazySingleton<KommuneViewModel>(() => KommuneViewModel());
+  serviceLocator
       .registerLazySingleton<ProfileViewmodel>(() => ProfileViewmodel());
 }

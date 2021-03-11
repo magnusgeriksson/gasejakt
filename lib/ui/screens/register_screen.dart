@@ -190,16 +190,16 @@ class _RegisterState extends State<RegisterScreen> {
                                         if (_formKey.currentState.validate()) {
                                           _sendRegistrering();
 
-                                          // If the form is valid, display a Snackbar.
-                                          // ScaffoldMessenger.of(context)
-                                          //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                                        }
-                                    },
-                                    child: Text('Send inn'),
-                                  ),
-                                )),
-                    ]),
-                    )
+                                            // If the form is valid, display a Snackbar.
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(SnackBar(content: Text('Processing Data')));
+                                          }
+                                        },
+                                        child: Text('Send inn'),
+                                      ),
+                                    )),
+                              ]),
+                            ]))
                   ])),
         ));
   }

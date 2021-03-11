@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gasejakt/business_logic/view_models/profile_viewmodel.dart';
 import 'package:gasejakt/services/service_locator.dart';
-import 'package:gasejakt/ui/widgets/MDTextFormField.dart';
+import 'package:gasejakt/ui/widgets/md_text_form_field.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
