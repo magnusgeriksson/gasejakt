@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gasejakt/business_logic/view_models/profile_viewmodel.dart';
 import 'package:gasejakt/services/service_locator.dart';
-import 'package:gasejakt/ui/widgets/MDTextFormField.dart';
+import 'package:gasejakt/ui/widgets/md_text_form_field.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key key}) : super(key: key);
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -15,7 +14,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   ProfileViewmodel viewmodel = serviceLocator<ProfileViewmodel>();
   final _formKey = GlobalKey<FormState>();
-  var isLoading = true;
   TextEditingController _hunterNumberController;
   TextEditingController _firstNameController;
   TextEditingController _lastNameController;
@@ -24,6 +22,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController _postalAddressController;
   TextEditingController _phoneController;
   TextEditingController _mailController;
+
+  final ButtonStyle flatButtonStyle = ElevatedButton.styleFrom(
+    minimumSize: Size(80, 48),
+    padding: EdgeInsets.symmetric(horizontal: 16.0),
+  );
 
   @override
   void initState() {
@@ -66,11 +69,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _addressController.addListener(() {
       viewmodel.setAddress(_addressController.text);
     });
-    _postalCodeController.addListener(() {
+    _postalCodeController.addListener(() async {
       viewmodel.setPostalCode(_postalCodeController.text);
-    });
-    _postalAddressController.addListener(() {
-      viewmodel.setPostalAddress(_postalAddressController.text);
+      _postalAddressController.text =
+          await viewmodel.getKommuneNavn(_postalCodeController.text);
     });
     _phoneController.addListener(() {
       viewmodel.setPhoneNumber(_phoneController.text);
@@ -80,9 +82,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  void disposeControllers() {
+    _hunterNumberController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _addressController.dispose();
+    _postalCodeController.dispose();
+    _postalAddressController.dispose();
+    _phoneController.dispose();
+    _mailController.dispose();
+  }
+
   @override
   void dispose() {
-    _firstNameController.dispose();
+    disposeControllers();
     super.dispose();
   }
 
@@ -97,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             body: Form(
                 child: ListView(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               children: [
                 MDTextFormField(
                   controller: _hunterNumberController,
@@ -142,6 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   keyboardType: TextInputType.text,
                   validatorText: "Kan ikke være tomt",
                   formKey: _formKey,
+                  enabled: false,
                 ),
                 MDTextFormField(
                   controller: _phoneController,
@@ -162,8 +176,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: EdgeInsets.all(20),
                   child: ElevatedButton(
                       child: Text("Lagre"),
-                      onPressed: () async => saveHunter()),
-                )
+                      onPressed: () async => saveHunter(),
+                      style: flatButtonStyle),
+                ),
               ],
             )),
           ),
@@ -177,8 +192,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   showSavingFeedback(bool res) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(res
-            ? "Informasjonen er lagret"
-            : "Lagring feilet, vennligst prøv igjen")));
+      content: Text(res
+          ? "Informasjonen er lagret"
+          : "Lagring feilet, vennligst prøv igjen"),
+    ));
   }
 }

@@ -8,4 +8,5 @@ abstract class GoosehuntService {
   Future<Hunter> getHunter();
   Future<bool> registerHunter(Hunter hunter);
   Future<List<Kommune>> getKommuner();
+  Future<Kommune> getKommune(int code);
 }

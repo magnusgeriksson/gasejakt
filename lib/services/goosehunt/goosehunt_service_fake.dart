@@ -17,7 +17,6 @@ class GoosehuntServiceFake implements GoosehuntService {
 
   @override
   Future<bool> registerHunter(Hunter hunter) async {
-    print(hunter.toString() + "is being saved");
     return true;
   }
 
@@ -41,5 +40,13 @@ class GoosehuntServiceFake implements GoosehuntService {
 
     // TODO: implement getKommuner
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Kommune> getKommune(int code) async {
+    if (code == 7071) {
+      return Kommune(0, 7071, "Trondheim");
+    } else
+      return Kommune(1, 0000, "Ukjent");
   }
 }
