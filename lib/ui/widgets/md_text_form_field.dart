@@ -10,16 +10,17 @@ class MDTextFormField extends StatefulWidget {
   final List<TextInputFormatter> inputFormatters;
   final TextInputType keyboardType;
   final TextEditingController controller;
-
-  const MDTextFormField({
-    Key key,
-    this.formKey,
-    this.label,
-    this.validatorText,
-    this.controller,
-    this.keyboardType = TextInputType.text,
-    this.inputFormatters,
-  }) : super(key: key);
+  final bool enabled;
+  const MDTextFormField(
+      {Key key,
+      this.formKey,
+      this.label,
+      this.validatorText,
+      this.controller,
+      this.keyboardType = TextInputType.text,
+      this.inputFormatters,
+      this.enabled})
+      : super(key: key);
 
   @override
   _MDTextFormFieldState createState() => _MDTextFormFieldState();
@@ -27,11 +28,13 @@ class MDTextFormField extends StatefulWidget {
 
 class _MDTextFormFieldState extends State<MDTextFormField> {
   final _formFieldKey = GlobalKey<FormFieldState>();
-  bool isValidated = false;
+  bool isValidated;
 
   @override
   void initState() {
     super.initState();
+    //TODO: Validere i initState().
+    isValidated = widget.controller?.text != "";
   }
 
   @override
@@ -50,6 +53,7 @@ class _MDTextFormFieldState extends State<MDTextFormField> {
         key: _formFieldKey,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
+        enabled: widget.enabled != false,
         inputFormatters: widget.inputFormatters,
         decoration: InputDecoration(
             labelText: widget.label,

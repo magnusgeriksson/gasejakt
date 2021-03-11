@@ -10,7 +10,6 @@ class ProfileViewmodel extends ChangeNotifier {
 
   Future<void> loadData() async {
     await _loadHunter();
-    print("Hunter hentet i loadData!");
     notifyListeners();
   }
 
@@ -38,7 +37,7 @@ class ProfileViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPostalCode(String code) {
+  void setPostalCode(String code) async {
     _hunter.postalCode = code;
     notifyListeners();
   }
@@ -61,6 +60,15 @@ class ProfileViewmodel extends ChangeNotifier {
   void setHuntingNumber(String number) {
     _hunter.hunterNumber = number;
     notifyListeners();
+  }
+
+  Future<String> getKommuneNavn(String code) async {
+    var kommuneCode = int.tryParse(code);
+    if (kommuneCode != null) {
+      var kommune = await _goosehuntService.getKommune(kommuneCode);
+      return kommune.navn;
+    }
+    return "Ukjent";
   }
 
   //Returns true if saving is ok.
