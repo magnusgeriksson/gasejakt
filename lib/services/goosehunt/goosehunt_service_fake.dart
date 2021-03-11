@@ -30,7 +30,6 @@ class GoosehuntServiceFake implements GoosehuntService {
 
   @override
   Future<bool> registerHunter(Hunter hunter) async {
-    print(hunter.toString() + "is being saved");
     return true;
   }
 
@@ -60,5 +59,13 @@ class GoosehuntServiceFake implements GoosehuntService {
     var selectedKommune =
         kommunelist?.firstWhere((kommune) => kommune.isSelected, orElse: () => null) ?? null;
     return selectedKommune;
+  }
+
+  @override
+  Future<Kommune> getKommune(int code) async {
+    if (code == 7071) {
+      return Kommune(0, 7071, "Trondheim");
+    } else
+      return Kommune(1, 0000, "Ukjent");
   }
 }
