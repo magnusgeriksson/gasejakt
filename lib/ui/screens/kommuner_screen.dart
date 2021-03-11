@@ -31,7 +31,7 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
           value: viewModel,
           child: Consumer<KommuneViewModel>(
               builder: (context, model, child) => ListView.builder(
-                    itemCount: model.kommunePresentation.length ?? 0,
+                    itemCount: model?.kommunePresentation?.length ?? 0,
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
