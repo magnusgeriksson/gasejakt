@@ -28,6 +28,7 @@ class _RegisterState extends State<RegisterScreen> {
   final _kortnebbgasNumberController = TextEditingController(text: "0");
   //Used to validate counter rows
   int gooseCounter = 0;
+  // final _gooseCounter = TextEditingController(text: "0");
 
   // TODO blir ikke kalt på navigate tilbake
   @override
@@ -63,19 +64,12 @@ class _RegisterState extends State<RegisterScreen> {
     });
   }
 
-  bool _isValid = true;
-
-  void _toggleValidator() {
-    setState(() {
-      _isValid = _formKey?.currentState?.validate();
-    });
-  }
-
   void _sendRegistrering() {
     _antallJegereController.clear();
     _gragasNumberController.clear();
     _kanadagasNumberController.clear();
     _kortnebbgasNumberController.clear();
+    gooseCounter = 0;
   }
 
   void _navigateToSelectKommune() {
@@ -190,9 +184,9 @@ class _RegisterState extends State<RegisterScreen> {
                                     onPressed: () {
                                       // Validate returns true if the form is valid, or false
                                       // otherwise.
-                                      _toggleValidator();
+                                        // _toggleValidator();
 
-                                      // viewModel.sendData();
+                                        // viewModel.sendData();
 
                                         if (_formKey.currentState.validate()) {
                                           _sendRegistrering();
