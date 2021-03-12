@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gasejakt/business_logic/models/huntingday.dart';
 import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/widgets/column_spacer.dart';
 import 'package:gasejakt/ui/widgets/md_number_input_row.dart';
 import 'package:gasejakt/ui/widgets/md_text_form_field.dart';
 import 'package:provider/provider.dart';
-
 import 'kommuner_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -19,17 +17,15 @@ class _RegisterState extends State<RegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  var testIcon = Icon(Icons.done);
-  var testIcon2 = Icon(Icons.send);
-
+  //Initialized in load default data to trigger validation
+  TextEditingController _jegerNummerController;
   final _antallJegereController = TextEditingController();
-  final _jegerNummerController = TextEditingController();
   final _gragasNumberController = TextEditingController(text: "0");
   final _kanadagasNumberController = TextEditingController(text: "0");
   final _kortnebbgasNumberController = TextEditingController(text: "0");
-  //Used to validate counter rows
+
+  //Used to validate goose counter rows
   int gooseCounter = 0;
-  // final _gooseCounter = TextEditingController(text: "0");
 
   // TODO blir ikke kalt på navigate tilbake
   @override
@@ -44,7 +40,8 @@ class _RegisterState extends State<RegisterScreen> {
 
   void loadDefaultData() async {
     await viewModel.loadData();
-    _jegerNummerController.text = viewModel.registerPresentation.jegernummer;
+    _jegerNummerController =
+        TextEditingController(text: viewModel.registerPresentation.jegernummer);
   }
 
   @override
@@ -138,7 +135,8 @@ class _RegisterState extends State<RegisterScreen> {
                             //Hvor jaktet du?
                             Text("Hvor jaktet du?", style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
-                            SizedBox(
+                            //TODO legge til validering på kommune
+                                SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _navigateToSelectKommune,
