@@ -27,7 +27,7 @@ class HistoryViewModel extends ChangeNotifier {
           hd.kommune.navn,
           DateFormat('yyyy-MM-dd – kk:mm').format(hd.date).toString(),
           hd.antallJegere.toString(),
-          gragas: hd.kanadaGas.toString(),
+          gragas: hd.graGas.toString(),
           kanadaGas: hd.kanadaGas.toString(),
           kortnebbgas: hd.kortnebbGas.toString()));
     }
