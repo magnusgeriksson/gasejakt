@@ -5,7 +5,6 @@ import 'package:gasejakt/ui/widgets/column_spacer.dart';
 import 'package:gasejakt/ui/widgets/md_number_input_row.dart';
 import 'package:gasejakt/ui/widgets/md_text_form_field.dart';
 import 'package:provider/provider.dart';
-
 import 'kommuner_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -18,19 +17,16 @@ class _RegisterState extends State<RegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  var testIcon = Icon(Icons.done);
-  var testIcon2 = Icon(Icons.send);
-
+  //Initialized in load default data to trigger validation
+  TextEditingController _jegerNummerController;
   final _antallJegereController = TextEditingController();
-  final _jegerNummerController = TextEditingController();
   final _gragasNumberController = TextEditingController(text: "0");
   final _kanadagasNumberController = TextEditingController(text: "0");
   final _kortnebbgasNumberController = TextEditingController(text: "0");
-  //Used to validate counter rows
-  int gooseCounter = 0;
-  // final _gooseCounter = TextEditingController(text: "0");
 
-  // TODO blir ikke kalt på navigate tilbake
+  //Used to validate goose counter rows
+  int gooseCounter = 0;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +39,8 @@ class _RegisterState extends State<RegisterScreen> {
 
   void loadDefaultData() async {
     await viewModel.loadData();
-    _jegerNummerController.text = viewModel.registerPresentation.jegernummer;
+    _jegerNummerController =
+        TextEditingController(text: viewModel.registerPresentation.jegernummer);
   }
 
   @override
@@ -64,6 +61,10 @@ class _RegisterState extends State<RegisterScreen> {
   }
 
   void _sendRegistrering() {
+    viewModel.sendData(
+        _gragasNumberController.text, _kortnebbgasNumberController.text,
+        _kanadagasNumberController.text, _antallJegereController.text);
+
     _antallJegereController.clear();
     _gragasNumberController.clear();
     _kanadagasNumberController.clear();
@@ -111,7 +112,7 @@ class _RegisterState extends State<RegisterScreen> {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    "Send inn en registrering for hver jaktdag, for hele jaktfølget tet",
+                                    "Send inn en registrering for hver jaktdag, for hele jaktfølget",
                                   ),
                                 ),
                               ],
@@ -133,7 +134,8 @@ class _RegisterState extends State<RegisterScreen> {
                             //Hvor jaktet du?
                             Text("Hvor jaktet du?", style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
-                            SizedBox(
+                            //TODO legge til validering på kommune.
+                                SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: _navigateToSelectKommune,

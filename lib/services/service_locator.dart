@@ -1,3 +1,4 @@
+import 'package:gasejakt/business_logic/view_models/history_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/kommune_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/profile_viewmodel.dart';
 import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
@@ -23,6 +24,8 @@ void setupServiceLocator() {
       .registerLazySingleton<KommuneViewModel>(() => KommuneViewModel());
   serviceLocator
       .registerLazySingleton<ProfileViewmodel>(() => ProfileViewmodel());
+  serviceLocator
+      .registerLazySingleton<HistoryViewModel>(() => HistoryViewModel());
 }
 /**
  * https://pub.dev/packages/get_it

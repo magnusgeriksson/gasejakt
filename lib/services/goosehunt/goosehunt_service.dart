@@ -4,6 +4,7 @@ import 'package:gasejakt/business_logic/models/kommune.dart';
 import 'package:http/http.dart' as http;
 
 abstract class GoosehuntService {
+  Future<List<Huntingday>> getRegisteredHuntingdays();
   Future<http.Response> registerHuntingday(Huntingday huntingday);
   Future<Hunter> getHunter();
   Future<bool> registerHunter(Hunter hunter);
