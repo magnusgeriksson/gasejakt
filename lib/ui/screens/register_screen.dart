@@ -27,7 +27,6 @@ class _RegisterState extends State<RegisterScreen> {
   //Used to validate goose counter rows
   int gooseCounter = 0;
 
-  // TODO blir ikke kalt på navigate tilbake
   @override
   void initState() {
     super.initState();
