@@ -5,21 +5,47 @@ import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
 import 'package:http/http.dart' as http;
 
 class GoosehuntServiceFake implements GoosehuntService {
-  var kommune2 = new Kommune(1, 1, "Bærum");
-  var kommune3 = new Kommune(2, 2, "Sandefjord");
-  var kommune4 = new Kommune(3, 3, "Tuborg");
-  var kommune5 = new Kommune(0, 0, "Trondheim");
+//Dummykommuner
+//   var kommune2 = new Kommune(1, 1, "Bærum");
+//   var kommune3 = new Kommune(2, 2, "Sandefjord");
+//   var kommune4 = new Kommune(3, 3, "Tuborg");
+//   var kommune5 = new Kommune(0, 0, "Trondheim");
+
   List<Kommune> kommunelist = [];
+  List<Huntingday> registrerteJaktdager = [];
 
   GoosehuntServiceFake() {
-    kommunelist.add(kommune2);
-    kommunelist.add(kommune3);
-    kommunelist.add(kommune4);
-    kommunelist.add(kommune5);
+
+    final baerum = new Kommune(1, 1, "Bærum");
+    final sandefjord = new Kommune(2, 2, "Sandefjord");
+
+    kommunelist.addAll([
+      baerum,
+      sandefjord,
+      new Kommune(3, 3, "Tuborg"),
+      new Kommune(0, 0, "Trondheim")
+    ]);
+
+    registrerteJaktdager.addAll([
+      new Huntingday(
+          jegerNumber: DummyHunter.dummyHunter.hunterNumber,
+          antallJegere: 1,
+          graGas: 2,
+          kommune: baerum),
+      new Huntingday(
+          jegerNumber: DummyHunter.dummyHunter.hunterNumber,
+          antallJegere: 4,
+          kanadaGas: 2,
+          kortnebbGas: 1,
+          kommune: sandefjord)
+    ]);
   }
 
   @override
   Future<http.Response> registerHuntingday(Huntingday huntingday) async {
+    registrerteJaktdager.add(huntingday);
+
+
     return new http.Response("body", 200);
   }
 
@@ -38,6 +64,7 @@ class GoosehuntServiceFake implements GoosehuntService {
     return kommunelist;
   }
 
+  //TODO Gjøres i db
   @override
   void setSelectedKommune(int kommunenummer) {
     for (Kommune pres in kommunelist) {
@@ -49,7 +76,6 @@ class GoosehuntServiceFake implements GoosehuntService {
   Huntingday getHuntingDay() {
     var huntingDay = new Huntingday();
     huntingDay.jegerNumber = DummyHunter.dummyHunter.hunterNumber;
-    // huntingDay.kommunenummer = 2;
 
     return huntingDay;
   }
@@ -67,5 +93,10 @@ class GoosehuntServiceFake implements GoosehuntService {
       return Kommune(0, 7071, "Trondheim");
     } else
       return Kommune(1, 0000, "Ukjent");
+  }
+
+  @override
+  Future<List<Huntingday>> getRegisteredHuntingdays() async {
+    return registrerteJaktdager;
   }
 }

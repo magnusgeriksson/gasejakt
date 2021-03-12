@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gasejakt/business_logic/models/huntingday.dart';
 import 'package:gasejakt/business_logic/view_models/register_view_model.dart';
 import 'package:gasejakt/services/service_locator.dart';
 import 'package:gasejakt/ui/widgets/column_spacer.dart';
@@ -64,6 +65,10 @@ class _RegisterState extends State<RegisterScreen> {
   }
 
   void _sendRegistrering() {
+    viewModel.sendData(
+        _gragasNumberController.text, _kortnebbgasNumberController.text,
+        _kanadagasNumberController.text, _antallJegereController.text);
+
     _antallJegereController.clear();
     _gragasNumberController.clear();
     _kanadagasNumberController.clear();
