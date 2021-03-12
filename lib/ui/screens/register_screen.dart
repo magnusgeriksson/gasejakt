@@ -112,7 +112,7 @@ class _RegisterState extends State<RegisterScreen> {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    "Send inn en registrering for hver jaktdag, for hele jaktfølget tet",
+                                    "Send inn en registrering for hver jaktdag, for hele jaktfølget",
                                   ),
                                 ),
                               ],
@@ -134,7 +134,7 @@ class _RegisterState extends State<RegisterScreen> {
                             //Hvor jaktet du?
                             Text("Hvor jaktet du?", style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15)),
-                            //TODO legge til validering på kommune
+                            //TODO legge til validering på kommune.
                                 SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(

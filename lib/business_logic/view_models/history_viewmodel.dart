@@ -21,15 +21,15 @@ class HistoryViewModel extends ChangeNotifier {
   void _prepareRegisterPresentation(List<Huntingday> huntingdays) {
     List<HistoryPresentation> tempList = [];
 
-    for (Huntingday hd in huntingdays) {
+    for (Huntingday huntingday in huntingdays) {
       tempList.add(HistoryPresentation(
-          hd.jegerNumber,
-          hd.kommune.navn,
-          DateFormat('yyyy-MM-dd – kk:mm').format(hd.date).toString(),
-          hd.antallJegere.toString(),
-          gragas: hd.graGas.toString(),
-          kanadaGas: hd.kanadaGas.toString(),
-          kortnebbgas: hd.kortnebbGas.toString()));
+          huntingday.jegerNumber,
+          huntingday?.kommune?.navn,
+          DateFormat('yyyy-MM-dd – kk:mm').format(huntingday.date).toString(),
+          huntingday.antallJegere.toString(),
+          gragas: huntingday.graGas.toString(),
+          kanadaGas: huntingday.kanadaGas.toString(),
+          kortnebbgas: huntingday.kortnebbGas.toString()));
     }
 
     _historyPresentation = tempList;
