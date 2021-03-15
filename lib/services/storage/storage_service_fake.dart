@@ -11,4 +11,10 @@ class StorageServiceFake implements StorageService {
   Future<void> saveHunter() async {
     return;
   }
+
+  @override
+  Future<void> insertHunter(Hunter hunter) {
+    // TODO: implement insertHunter
+    throw UnimplementedError();
+  }
 }

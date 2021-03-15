@@ -2,20 +2,19 @@ import 'package:gasejakt/business_logic/models/hunter.dart';
 import 'package:gasejakt/business_logic/models/huntingday.dart';
 import 'package:gasejakt/business_logic/models/kommune.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
+import 'package:gasejakt/services/storage/storage_service_implementation.dart';
 import 'package:http/http.dart' as http;
 
+import '../service_locator.dart';
+
 class GoosehuntServiceFake implements GoosehuntService {
-//Dummykommuner
-//   var kommune2 = new Kommune(1, 1, "Bærum");
-//   var kommune3 = new Kommune(2, 2, "Sandefjord");
-//   var kommune4 = new Kommune(3, 3, "Tuborg");
-//   var kommune5 = new Kommune(0, 0, "Trondheim");
+  final StorageServiceImpl _storageService =
+      serviceLocator<StorageServiceImpl>();
 
   List<Kommune> kommunelist = [];
   List<Huntingday> registrerteJaktdager = [];
 
   GoosehuntServiceFake() {
-
     final baerum = new Kommune(1, 1, "Bærum");
     final sandefjord = new Kommune(2, 2, "Sandefjord");
 
@@ -49,13 +48,22 @@ class GoosehuntServiceFake implements GoosehuntService {
     return new http.Response("body", 200);
   }
 
+  //Kun en hunter skal være lagret i basen
   @override
   Future<Hunter> getHunter() async {
+    final hunter = await _storageService.getHunters();
+    return hunter == null ? new Hunter() : hunter[0];
+
     return DummyHunter.dummyHunter;
   }
 
+  //Register, save or insert. Bestem navngivning
   @override
   Future<bool> registerHunter(Hunter hunter) async {
+    //TODO Handle error
+    await _storageService
+        .insertHunter(hunter)
+        .catchError((error, stackTrace) => {});
     return true;
   }
 

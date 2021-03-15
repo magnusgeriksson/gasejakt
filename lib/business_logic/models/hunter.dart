@@ -26,6 +26,19 @@ class Hunter {
   String toString() {
     return "$hunterNumber\n$firstName\n$lastName\n$address\n$postalCode\n$postalAddress\n$phoneNumber\n$mailAddress";
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'hunterNumber': hunterNumber,
+      'firstName': lastName,
+      'address': address,
+      'postalCode': postalCode,
+      'postalAddress': postalAddress,
+      'phoneNumber': phoneNumber,
+      'mailAddress': mailAddress,
+    };
+  }
 }
 
 extension DummyHunter on Hunter {
@@ -52,17 +65,8 @@ extension CreateScriptHunter on Hunter {
   static final colPhoneNumber = "phoneNumber";
   static final colMailAddress = "mailAddress";
 
-  static var script = '''
-    CREATE TABLE $tableName (
-      $colId INTEGER PRIMARY KEY, 
-      $colHunterNumber TEXT NOT NULL,
-      $colFirstName TEXT NOT NULL,
-      $colLastName TEXT NOT NULL,
-      $colAddress TEXT NOT NULL,
-      $colPostalCode TEXT NOT NULL,
-      $colPostalAddress TEXT NOT NULL,
-      $colPhoneNumber TEXT NOT NULL,
-      $colMailAddress TEXT NOT NULL,
-    )
-    ''';
+  static var script =
+      '''CREATE TABLE $tableName($colId INTEGER PRIMARY KEY, $colHunterNumber TEXT, $colFirstName TEXT, $colLastName TEXT, $colAddress TEXT, $colPostalCode TEXT, $colPostalAddress TEXT, $colPhoneNumber TEXT, $colMailAddress TEXT)''';
+ // static var script =
+ //      '''CREATE TABLE $tableName($colId INTEGER PRIMARY KEY, $colHunterNumber TEXT)''';
 }

@@ -14,8 +14,12 @@ void setupServiceLocator() {
   serviceLocator
       .registerLazySingleton<GoosehuntService>(() => GoosehuntServiceFake());
 
-  serviceLocator.registerLazySingletonAsync(
-      () async => StorageServiceImpl().initDatabase());
+  //Services
+  serviceLocator
+      .registerLazySingleton<StorageServiceImpl>(() => StorageServiceImpl());
+
+  // serviceLocator.registerLazySingletonAsync(
+  //     () async => StorageServiceImpl().initDatabase());
 
   //Viewmodels
   serviceLocator
