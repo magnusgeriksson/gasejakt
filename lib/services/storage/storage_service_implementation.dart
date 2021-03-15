@@ -45,7 +45,9 @@ class StorageServiceImpl implements StorageService {
   Future<void> insertHunter(Hunter hunter) async {
     final Database db = await database;
 
-    var map = DummyHunter.dummyHunter.toMap();
+    //Ikke fjern. For testing
+    // var map = DummyHunter.dummyHunter.toMap();
+    var map = hunter.toMap();
 
     var row = await db.insert(
       'hunter_table',

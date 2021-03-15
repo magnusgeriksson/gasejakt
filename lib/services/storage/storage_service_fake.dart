@@ -17,4 +17,10 @@ class StorageServiceFake implements StorageService {
     // TODO: implement insertHunter
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<Hunter>> getHunters() {
+    // TODO: implement getHunters
+    throw UnimplementedError();
+  }
 }

@@ -72,7 +72,11 @@ class ProfileViewmodel extends ChangeNotifier {
   }
 
   //Returns true if saving is ok.
-  Future<bool> saveHunter() {
-    return _goosehuntService.registerHunter(_hunter);
+  Future<bool> saveHunter() async {
+    try {
+      return await _goosehuntService.registerHunter(_hunter);
+    } catch (e) {
+      return false;
+    }
   }
 }
