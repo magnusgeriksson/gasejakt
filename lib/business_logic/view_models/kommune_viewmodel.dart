@@ -8,6 +8,7 @@ class KommuneViewModel extends ChangeNotifier {
   final GoosehuntService _goosehuntService = serviceLocator<GoosehuntService>();
   final StedService _stedService = serviceLocator<StedService>();
 
+  List<Kommune> _kommuner;
   KommunePresentation _selectedKommune;
 
   KommunePresentation get selectedKommune => _selectedKommune;
@@ -20,8 +21,8 @@ class KommuneViewModel extends ChangeNotifier {
   List<KommunePresentation> get kommunePresentation => _kommunePresentation;
 
   void loadData() async {
-    final kommuner = await _stedService.getKommuner();
-    _prepareKomunePresentation(kommuner);
+    _kommuner = await _stedService.getKommuner();
+    _prepareKomunePresentation(_kommuner);
     notifyListeners();
   }
 
@@ -44,7 +45,7 @@ class KommuneViewModel extends ChangeNotifier {
   void setKommune(int index) {
     _selectedKommune = _kommunePresentation[index];
 
-    _goosehuntService.setSelectedKommune(_selectedKommune.kommunenummer);
+    _stedService.setSelectedKommune(_selectedKommune.kommunenummer);
 
     //TODO TEMP set selected kommune. Dette vil bare fungere i UI, valgt kommune blir ikke med videre.
     for (KommunePresentation pres in _allKommunePresentation) {

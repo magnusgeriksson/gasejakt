@@ -57,11 +57,6 @@ class GoosehuntServiceFake implements GoosehuntService {
     return true;
   }
 
-  @override
-  Future<List<Kommune>> getKommuner() async {
-    return kommunelist;
-  }
-
   //TODO Gjøres i db
   @override
   void setSelectedKommune(String kommunenummer) {
@@ -79,12 +74,7 @@ class GoosehuntServiceFake implements GoosehuntService {
   }
 
   @override
-  Future<Kommune> getSelectedKommune() async {
-    var selectedKommune = kommunelist
-            ?.firstWhere((kommune) => kommune.isSelected, orElse: () => null) ??
-        null;
-    return selectedKommune;
-  }
+  Future<Kommune> getSelectedKommune() async {}
 
   //TODO: Bytt til getPoststed!
   @override

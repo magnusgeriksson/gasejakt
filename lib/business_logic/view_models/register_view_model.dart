@@ -4,26 +4,26 @@ import 'package:gasejakt/business_logic/models/huntingday.dart';
 import 'package:gasejakt/business_logic/models/kommune.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
 import 'package:gasejakt/services/service_locator.dart';
+import 'package:gasejakt/services/sted/sted_service.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   final GoosehuntService _goosehuntService = serviceLocator<GoosehuntService>();
-
+  final StedService _stedService = serviceLocator<StedService>();
   RegisterPresentation _registerPresentation;
 
   RegisterPresentation get registerPresentation => _registerPresentation;
 
-  void sendData(String gragas, String kortnebbgas, String kandagas, String antalljegere) async {
-
-    var kommune = await _goosehuntService.getSelectedKommune();
+  void sendData(String gragas, String kortnebbgas, String kandagas,
+      String antalljegere) async {
+    var kommune = await _stedService.getSelectedKommune();
 
     var huntingday = new Huntingday(
-      jegerNumber: registerPresentation.jegernummer,
-      kommune: kommune,
-      graGas: int.tryParse(gragas),
-      kanadaGas: int.tryParse(kandagas),
-      kortnebbGas: int.tryParse(kortnebbgas),
-      antallJegere: int.tryParse(antalljegere)
-    );
+        jegerNumber: registerPresentation.jegernummer,
+        kommune: kommune,
+        graGas: int.tryParse(gragas),
+        kanadaGas: int.tryParse(kandagas),
+        kortnebbGas: int.tryParse(kortnebbgas),
+        antallJegere: int.tryParse(antalljegere));
 
     var res = await _goosehuntService.registerHuntingday(huntingday);
 
@@ -32,14 +32,14 @@ class RegisterViewModel extends ChangeNotifier {
 
   Future<void> loadData() async {
     var hunter = await _goosehuntService.getHunter();
-    var kommune = await _goosehuntService.getSelectedKommune();
-
+    var kommune = await _stedService.getSelectedKommune();
     _prepareRegisterPresentation(hunter, kommune);
     notifyListeners();
   }
 
   void _prepareRegisterPresentation(Hunter hunter, Kommune kommune) {
-    _registerPresentation = RegisterPresentation(hunter.hunterNumber, kommune?.navn ?? "Velg kommune");
+    _registerPresentation = RegisterPresentation(
+        hunter.hunterNumber, kommune?.navn ?? "Velg kommune");
   }
 }
 

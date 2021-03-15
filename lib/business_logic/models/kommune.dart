@@ -1,4 +1,4 @@
-class Kommune {
+class Kommune implements Comparable<Kommune> {
   //[Range(1, 999999)]
   String id;
   String navn;
@@ -12,7 +12,18 @@ class Kommune {
 
   Kommune.fromJson(Map<String, dynamic> json)
       : id = json["kommunenummer"],
-        navn = json["kommunenavnNorsk"];
+        navn = json["kommunenavnNorsk"],
+        isSelected = false;
+
+  @override
+  int compareTo(other) {
+    if (this.isSelected && !other.isSelected) {
+      return 1;
+    } else if (!this.isSelected && other.isSelected) {
+      return -1;
+    } else
+      return this.navn.compareTo(other.navn);
+  }
 }
 
 // Huntingday(

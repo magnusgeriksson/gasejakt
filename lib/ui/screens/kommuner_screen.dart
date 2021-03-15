@@ -46,9 +46,11 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
                               Text('${model.kommunePresentation[index].navn}'),
                           // subtitle:
                           //     Text('${model.kommunePresentation[index].navn}'),
-                          trailing: (model.kommunePresentation[index].isSelected ?? false)
-                              ? Icon(Icons.done, color: PrimaryColor)
-                              : null,
+                          trailing:
+                              (model.kommunePresentation[index].isSelected ??
+                                      false)
+                                  ? Icon(Icons.done, color: PrimaryColor)
+                                  : null,
                           onTap: () {
                             //setState to update Placeholder selected kommune
                             setState(() {

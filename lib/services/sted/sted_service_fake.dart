@@ -13,4 +13,16 @@ class StedServiceFake extends StedService {
   Future<List<Kommune>> getKommuner() async {
     return kommunelist;
   }
+
+  @override
+  Future<Kommune> getSelectedKommune() async {
+    return kommunelist[0];
+  }
+
+  @override
+  void setSelectedKommune(String kommunenummer) {
+    for (Kommune pres in kommunelist) {
+      pres.isSelected = pres.id == kommunenummer;
+    }
+  }
 }
