@@ -62,13 +62,10 @@ class ProfileViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
+  //TODO: Bytt til poststed
   Future<String> getKommuneNavn(String code) async {
-    var kommuneCode = int.tryParse(code);
-    if (kommuneCode != null) {
-      var kommune = await _goosehuntService.getKommune(kommuneCode);
-      return kommune.navn;
-    }
-    return "Ukjent";
+    var kommune = await _goosehuntService.getKommune(code);
+    return kommune.navn;
   }
 
   //Returns true if saving is ok.

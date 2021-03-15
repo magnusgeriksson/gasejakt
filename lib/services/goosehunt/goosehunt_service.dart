@@ -8,9 +8,9 @@ abstract class GoosehuntService {
   Future<http.Response> registerHuntingday(Huntingday huntingday);
   Future<Hunter> getHunter();
   Future<bool> registerHunter(Hunter hunter);
-  Future<List<Kommune>> getKommuner();
-  Future<Kommune> getKommune(int code);
+  // Future<List<Kommune>> getKommuner();
+  Future<Kommune> getKommune(String code);
   Future<Kommune> getSelectedKommune();
-  void setSelectedKommune(int kommunenummer);
+  void setSelectedKommune(String kommunenummer);
   Huntingday getHuntingDay();
 }

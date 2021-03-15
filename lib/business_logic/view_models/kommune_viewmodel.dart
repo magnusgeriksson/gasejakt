@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gasejakt/business_logic/models/kommune.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
 import 'package:gasejakt/services/service_locator.dart';
+import 'package:gasejakt/services/sted/sted_service.dart';
 
 class KommuneViewModel extends ChangeNotifier {
   final GoosehuntService _goosehuntService = serviceLocator<GoosehuntService>();
+  final StedService _stedService = serviceLocator<StedService>();
 
   KommunePresentation _selectedKommune;
 
@@ -18,22 +20,21 @@ class KommuneViewModel extends ChangeNotifier {
   List<KommunePresentation> get kommunePresentation => _kommunePresentation;
 
   void loadData() async {
-    final kommuner = await _goosehuntService.getKommuner();
+    final kommuner = await _stedService.getKommuner();
     _prepareKomunePresentation(kommuner);
     notifyListeners();
   }
 
-
-  void _prepareKomunePresentation(List<Kommune> kommuner){
+  void _prepareKomunePresentation(List<Kommune> kommuner) {
     List<KommunePresentation> list = [];
     for (Kommune kommune in kommuner) {
       if (kommune.isSelected) {
         _selectedKommune = new KommunePresentation(kommune.navn,
-            kommune.navn.toUpperCase(), kommune.isSelected, kommune.nummer);
+            kommune.navn.toUpperCase(), kommune.isSelected, kommune.id);
       }
 
       var presentation = new KommunePresentation(kommune.navn,
-          kommune.navn.toUpperCase(), kommune.isSelected, kommune.nummer);
+          kommune.navn.toUpperCase(), kommune.isSelected, kommune.id);
       list.add(presentation);
     }
     _kommunePresentation = list;
@@ -59,14 +60,16 @@ class KommuneViewModel extends ChangeNotifier {
   //TODO søkelogikken skal ligge i servicen
   void filterKommuner(String searchString) {
     var formattedString = searchString.toUpperCase();
-    _kommunePresentation = _allKommunePresentation.where((kommune) => kommune.searchableName.contains(formattedString)).toList();
+    _kommunePresentation = _allKommunePresentation
+        .where((kommune) => kommune.searchableName.contains(formattedString))
+        .toList();
     notifyListeners();
   }
 }
 
 class KommunePresentation {
   final String navn;
-  final int kommunenummer;
+  final String kommunenummer;
 
   //TODO Temp variabel. Fjernes når logikken er flyttet til service
   final String searchableName;

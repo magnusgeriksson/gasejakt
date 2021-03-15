@@ -15,15 +15,14 @@ class GoosehuntServiceFake implements GoosehuntService {
   List<Huntingday> registrerteJaktdager = [];
 
   GoosehuntServiceFake() {
-
-    final baerum = new Kommune(1, 1, "Bærum");
-    final sandefjord = new Kommune(2, 2, "Sandefjord");
+    final baerum = new Kommune("0001", "Bærum");
+    final sandefjord = new Kommune("0002", "Sandefjord");
 
     kommunelist.addAll([
       baerum,
       sandefjord,
-      new Kommune(3, 3, "Tuborg"),
-      new Kommune(0, 0, "Trondheim")
+      new Kommune("0004", "Tuborg"),
+      new Kommune("0005", "Trondheim")
     ]);
 
     registrerteJaktdager.addAll([
@@ -45,7 +44,6 @@ class GoosehuntServiceFake implements GoosehuntService {
   Future<http.Response> registerHuntingday(Huntingday huntingday) async {
     registrerteJaktdager.add(huntingday);
 
-
     return new http.Response("body", 200);
   }
 
@@ -66,9 +64,9 @@ class GoosehuntServiceFake implements GoosehuntService {
 
   //TODO Gjøres i db
   @override
-  void setSelectedKommune(int kommunenummer) {
+  void setSelectedKommune(String kommunenummer) {
     for (Kommune pres in kommunelist) {
-      pres.isSelected = pres.nummer == kommunenummer;
+      pres.isSelected = pres.id == kommunenummer;
     }
   }
 
@@ -82,17 +80,19 @@ class GoosehuntServiceFake implements GoosehuntService {
 
   @override
   Future<Kommune> getSelectedKommune() async {
-    var selectedKommune =
-        kommunelist?.firstWhere((kommune) => kommune.isSelected, orElse: () => null) ?? null;
+    var selectedKommune = kommunelist
+            ?.firstWhere((kommune) => kommune.isSelected, orElse: () => null) ??
+        null;
     return selectedKommune;
   }
 
+  //TODO: Bytt til getPoststed!
   @override
-  Future<Kommune> getKommune(int code) async {
-    if (code == 7071) {
-      return Kommune(0, 7071, "Trondheim");
+  Future<Kommune> getKommune(String code) async {
+    if (code == "7071") {
+      return Kommune("7071", "Trondheim");
     } else
-      return Kommune(1, 0000, "Ukjent");
+      return Kommune("0000", "Ukjent");
   }
 
   @override
