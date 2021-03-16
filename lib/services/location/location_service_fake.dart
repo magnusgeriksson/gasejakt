@@ -1,10 +1,10 @@
 import 'package:gasejakt/business_logic/models/kommune.dart';
-import 'package:gasejakt/services/sted/sted_service.dart';
+import 'package:gasejakt/services/location/location_service.dart';
 
-class StedServiceFake extends StedService {
+class LocationServiceFake extends LocationService {
   List<Kommune> kommunelist = [];
 
-  StedServiceFake() {
+  LocationServiceFake() {
     kommunelist.addAll(
         [new Kommune("0004", "Tuborg"), new Kommune("0005", "Trondheim")]);
   }

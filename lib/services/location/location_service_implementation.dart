@@ -1,9 +1,9 @@
 import 'package:gasejakt/business_logic/models/kommune.dart';
-import 'package:gasejakt/services/sted/sted_service.dart';
+import 'package:gasejakt/services/location/location_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class StedServiceImpl extends StedService {
+class LocationServiceImpl extends LocationService {
   final _kommuneHost = "ws.geonorge.no";
   final _kommunePath = "kommuneinfo/v1/kommuner";
   final Map<String, String> _headers = {

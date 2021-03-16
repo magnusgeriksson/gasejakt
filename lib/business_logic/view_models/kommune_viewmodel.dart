@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gasejakt/business_logic/models/kommune.dart';
 import 'package:gasejakt/services/goosehunt/goosehunt_service.dart';
+import 'package:gasejakt/services/location/location_service.dart';
 import 'package:gasejakt/services/service_locator.dart';
-import 'package:gasejakt/services/sted/sted_service.dart';
 
 class KommuneViewModel extends ChangeNotifier {
   final GoosehuntService _goosehuntService = serviceLocator<GoosehuntService>();
-  final StedService _stedService = serviceLocator<StedService>();
+  final LocationService _stedService = serviceLocator<LocationService>();
 
   List<Kommune> _kommuner;
   KommunePresentation _selectedKommune;
