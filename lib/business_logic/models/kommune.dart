@@ -18,9 +18,9 @@ class Kommune implements Comparable<Kommune> {
   @override
   int compareTo(other) {
     if (this.isSelected && !other.isSelected) {
-      return 1;
-    } else if (!this.isSelected && other.isSelected) {
       return -1;
+    } else if (!this.isSelected && other.isSelected) {
+      return 1;
     } else
       return this.navn.compareTo(other.navn);
   }

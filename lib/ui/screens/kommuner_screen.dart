@@ -35,17 +35,8 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
-                          // leading: SizedBox(
-                          //   width: 60,
-                          //   child: Text(
-                          //     '${model.kommunePresentation[index].navn}',
-                          //     style: TextStyle(fontSize: 10),
-                          //   ),
-                          // ),
                           title:
                               Text('${model.kommunePresentation[index].navn}'),
-                          // subtitle:
-                          //     Text('${model.kommunePresentation[index].navn}'),
                           trailing:
                               (model.kommunePresentation[index].isSelected ??
                                       false)
@@ -77,21 +68,13 @@ class _SelectKommuneScreenState extends State<SelectKommuneScreen> {
           title: Text('Velg kommune'),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(model.selectedKommune?.navn ?? "PLACEHOLDER SELECTED KOMMUNE"),
           TextField(
               decoration: InputDecoration(
                 labelText: "Søk etter kommune",
                 prefixIcon: Icon(Icons.search),
-
-                // focusedBorder: OutlineInputBorder(
-                //     borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                //     borderRadius: BorderRadius.circular(5.0)))
               ),
               onChanged: searchKommune),
           new Expanded(child: buildListView(model))
-        ])
-
-        // buildListView(model));
-        );
+        ]));
   }
 }
