@@ -31,7 +31,8 @@ class Hunter {
     return {
       'id': id,
       'hunterNumber': hunterNumber,
-      'firstName': lastName,
+      'firstName': firstName,
+      'lastName': lastName,
       'address': address,
       'postalCode': postalCode,
       'postalAddress': postalAddress,
