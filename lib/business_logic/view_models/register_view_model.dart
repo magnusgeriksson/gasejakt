@@ -14,16 +14,17 @@ class RegisterViewModel extends ChangeNotifier {
 
   void sendData(String gragas, String kortnebbgas, String kandagas, String antalljegere) async {
 
-    var kommune = await _goosehuntService.getSelectedKommune();
+    // var kommune = await _goosehuntService.getSelectedKommune();
+    // var hunter = await _goosehuntService.getHunter();
 
-    var huntingday = new Huntingday(
-      jegerNumber: registerPresentation.jegernummer,
-      kommune: kommune,
-      graGas: int.tryParse(gragas),
-      kanadaGas: int.tryParse(kandagas),
-      kortnebbGas: int.tryParse(kortnebbgas),
-      antallJegere: int.tryParse(antalljegere)
-    );
+    var huntingday = Huntingday(
+        hunter: Hunter(),
+        kommunenr: 1,
+        date: DateTime.now(),
+        graGas: int.tryParse(gragas),
+        kanadaGas: int.tryParse(kandagas),
+        kortnebbGas: int.tryParse(kortnebbgas),
+        antallJegere: int.tryParse(antalljegere));
 
     var res = await _goosehuntService.registerHuntingday(huntingday);
 

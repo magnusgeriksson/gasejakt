@@ -27,22 +27,25 @@ class GoosehuntServiceFake implements GoosehuntService {
 
     registrerteJaktdager.addAll([
       new Huntingday(
-          jegerNumber: DummyHunter.dummyHunter.hunterNumber,
+          hunter: DummyHunter.dummyHunter,
           antallJegere: 1,
           graGas: 2,
-          kommune: baerum),
+          kommunenr: 2),
       new Huntingday(
-          jegerNumber: DummyHunter.dummyHunter.hunterNumber,
+          hunter: DummyHunter.dummyHunter,
           antallJegere: 4,
           kanadaGas: 2,
           kortnebbGas: 1,
-          kommune: sandefjord)
+          kommunenr: 1)
     ]);
   }
 
   @override
   Future<http.Response> registerHuntingday(Huntingday huntingday) async {
-    registrerteJaktdager.add(huntingday);
+
+    await _storageService.insertHuntingday(huntingday);
+
+    // registrerteJaktdager.add(huntingday);
 
 
     return new http.Response("body", 200);
@@ -51,8 +54,10 @@ class GoosehuntServiceFake implements GoosehuntService {
   //Kun en hunter skal være lagret i basen
   @override
   Future<Hunter> getHunter() async {
-    final hunter = await _storageService.getHunters();
-    return hunter == null ? new Hunter() : hunter[0];
+    final hunters = await _storageService.getHunters();
+    final hunter = hunters[0];
+
+    return hunter == null ? new Hunter() : hunter;
 
     return DummyHunter.dummyHunter;
   }
@@ -83,7 +88,7 @@ class GoosehuntServiceFake implements GoosehuntService {
   @override
   Huntingday getHuntingDay() {
     var huntingDay = new Huntingday();
-    huntingDay.jegerNumber = DummyHunter.dummyHunter.hunterNumber;
+    huntingDay.hunter = DummyHunter.dummyHunter;
 
     return huntingDay;
   }
@@ -105,6 +110,10 @@ class GoosehuntServiceFake implements GoosehuntService {
 
   @override
   Future<List<Huntingday>> getRegisteredHuntingdays() async {
-    return registrerteJaktdager;
+    var huntingdays = await _storageService.getHuntingdays();
+
+
+    // return registrerteJaktdager;
+    return huntingdays;
   }
 }

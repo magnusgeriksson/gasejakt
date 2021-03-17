@@ -1,4 +1,5 @@
 import 'package:gasejakt/business_logic/models/hunter.dart';
+import 'package:gasejakt/business_logic/models/huntingday.dart';
 import 'package:gasejakt/services/storage/storage_service.dart';
 
 class StorageServiceFake implements StorageService {
@@ -21,6 +22,18 @@ class StorageServiceFake implements StorageService {
   @override
   Future<List<Hunter>> getHunters() {
     // TODO: implement getHunters
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Huntingday>> getHuntingdays() {
+    // TODO: implement getHuntingdays
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> insertHuntingday(Huntingday huntingday) {
+    // TODO: implement insertHuntingday
     throw UnimplementedError();
   }
 }

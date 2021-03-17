@@ -23,9 +23,9 @@ class HistoryViewModel extends ChangeNotifier {
 
     for (Huntingday huntingday in huntingdays) {
       tempList.add(HistoryPresentation(
-          huntingday.jegerNumber,
-          huntingday?.kommune?.navn,
-          DateFormat('yyyy-MM-dd – kk:mm').format(huntingday.date).toString(),
+          huntingday.hunter?.hunterNumber,
+          "HENT FRA API",
+          DateFormat('yyyy-MM-dd – kk:mm').format(huntingday.date ?? DateTime.now()).toString(),
           huntingday.antallJegere.toString(),
           gragas: huntingday.graGas.toString(),
           kanadaGas: huntingday.kanadaGas.toString(),
